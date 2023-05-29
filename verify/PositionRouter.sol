@@ -787,6 +787,8 @@ interface IShortsTracker {
         uint256 _markPrice,
         bool _isIncrease
     ) external;
+    function setIsGlobalShortDataReady(bool value) external;
+    function setInitData(address[] calldata _tokens, uint256[] calldata _averagePrices) external;
 }
 
 // File: contracts/core/interfaces/IOrderBook.sol

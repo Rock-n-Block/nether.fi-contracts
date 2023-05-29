@@ -3,6 +3,8 @@ const BN = require('bn.js');
 require('dotenv').config();
 
 const {
+    VPF_MAX_STRICT_PRICE_DEVIATION,
+    VPF_PRICE_SAMPLE_SPACE
 } = process.env;
 
 const VaultPriceFeed = artifacts.require("VaultPriceFeed");
@@ -27,6 +29,8 @@ module.exports = async function (deployer, network) {
 
     let VaultPriceFeedInst = await VaultPriceFeed.deployed();
     await VaultPriceFeedInst.setIsAmmEnabled(false);
+    await VaultPriceFeedInst.setMaxStrictPriceDeviation(VPF_MAX_STRICT_PRICE_DEVIATION);
+    await VaultPriceFeedInst.setPriceSampleSpace(VPF_PRICE_SAMPLE_SPACE);
 
     console.log("VaultPriceFeed =", VaultPriceFeedInst.address);
 };

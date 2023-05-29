@@ -31,5 +31,6 @@ module.exports = async function (deployer, network) {
     );
 
     let PositionManagerInst = await PositionManager.deployed();
+    await PositionManagerInst.setShouldValidateIncreaseOrder(false);
     console.log("PositionManager =", PositionManagerInst.address);
 };

@@ -29,6 +29,7 @@ module.exports = async function (deployer, network) {
     );
 
     let ReaderInst = await Reader.deployed();
+    await ReaderInst.setConfig(true);
     console.log("Reader =", ReaderInst.address);
 
     await deployer.deploy(

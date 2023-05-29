@@ -7,8 +7,13 @@ const {
     FPF_MAX_PRICE_UPDATE_DELAY,
     FPF_MIN_BLOCK_INTERVAL,
     FPF_MAX_DEVIATION_BASIS_POINTS,
+    FPF_MAX_TIME_DEVIATION,
+    FPF_MIN_AUTHORIZATIONS,
+    FPF_PRICE_DATA_INTERVAL,
+    FPF_SPREAD_BASIS_POINTS_IF_INACTIVE,
+    FPF_SPREAD_BASIS_POINTS_IF_CHAIN_ERROR,
     FAST_PRICE_EVENTS,
-    FPF_TOKEN_MANAGER,
+    DEPLOYER,
     POSITION_ROUTER,
     VAULT_PRICE_FEED
 } = process.env;
@@ -31,10 +36,16 @@ module.exports = async function (deployer, network) {
         return;
 
     await deployer.deploy(
-        FastPriceFeed, FPF_PRICE_DURATION, FPF_MAX_PRICE_UPDATE_DELAY, FPF_MIN_BLOCK_INTERVAL, FPF_MAX_DEVIATION_BASIS_POINTS, FAST_PRICE_EVENTS, FPF_TOKEN_MANAGER, POSITION_ROUTER
+        FastPriceFeed, FPF_PRICE_DURATION, FPF_MAX_PRICE_UPDATE_DELAY, FPF_MIN_BLOCK_INTERVAL, FPF_MAX_DEVIATION_BASIS_POINTS, FAST_PRICE_EVENTS, DEPLOYER, POSITION_ROUTER
     );
 
     let FastPriceFeedInst = await FastPriceFeed.deployed();
+
+    await FastPriceFeedInst.setMaxTimeDeviation(FPF_MAX_TIME_DEVIATION);
+    await FastPriceFeedInst.setMinAuthorizations(FPF_MIN_AUTHORIZATIONS);
+    await FastPriceFeedInst.setPriceDataInterval(FPF_PRICE_DATA_INTERVAL);
+    await FastPriceFeedInst.setSpreadBasisPointsIfInactive(FPF_SPREAD_BASIS_POINTS_IF_INACTIVE);
+    await FastPriceFeedInst.setSpreadBasisPointsIfChainError(FPF_SPREAD_BASIS_POINTS_IF_CHAIN_ERROR);
 
     let FastPriceEventsInst = await FastPriceEvents.at(FAST_PRICE_EVENTS);
     await FastPriceEventsInst.setIsPriceFeed(FastPriceFeedInst.address, true);

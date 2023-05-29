@@ -205,6 +205,8 @@ interface IShortsTracker {
         uint256 _markPrice,
         bool _isIncrease
     ) external;
+    function setIsGlobalShortDataReady(bool value) external;
+    function setInitData(address[] calldata _tokens, uint256[] calldata _averagePrices) external;
 }
 
 // File: contracts/core/interfaces/IVaultUtils.sol
@@ -391,7 +393,7 @@ contract ShortsTracker is Governable, IShortsTracker {
         globalShortAveragePrices[_token] = _averagePrice;
     }
 
-    function setIsGlobalShortDataReady(bool value) external onlyGov {
+    function setIsGlobalShortDataReady(bool value) external override onlyGov {
         isGlobalShortDataReady = value;
     }
 
@@ -439,7 +441,7 @@ contract ShortsTracker is Governable, IShortsTracker {
     }
 
 
-    function setInitData(address[] calldata _tokens, uint256[] calldata _averagePrices) external onlyGov {
+    function setInitData(address[] calldata _tokens, uint256[] calldata _averagePrices) external override onlyGov {
         require(!isGlobalShortDataReady, "ShortsTracker: already migrated");
 
         for (uint256 i = 0; i < _tokens.length; i++) {
