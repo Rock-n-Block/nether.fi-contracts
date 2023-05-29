@@ -9,6 +9,7 @@ const Reader = artifacts.require("Reader");
 const OrderBookReader = artifacts.require("OrderBookReader");
 const ReferralReader = artifacts.require("ReferralReader");
 const RewardReader = artifacts.require("RewardReader");
+const VaultReader = artifacts.require("VaultReader");
 const BatchSender = artifacts.require("BatchSender");
 
 const debug = "true";
@@ -52,6 +53,13 @@ module.exports = async function (deployer, network) {
 
     let RewardReaderInst = await RewardReader.deployed();
     console.log("RewardReader =", RewardReaderInst.address);
+
+    await deployer.deploy(
+        VaultReader
+    );
+
+    let VaultReaderInst = await VaultReader.deployed();
+    console.log("VaultReader =", VaultReaderInst.address);
 
     await deployer.deploy(
         BatchSender
