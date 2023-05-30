@@ -15,12 +15,14 @@ const {
     FAST_PRICE_EVENTS,
     DEPLOYER,
     POSITION_ROUTER,
-    VAULT_PRICE_FEED
+    VAULT_PRICE_FEED,
+    GOV
 } = process.env;
 
 const FastPriceFeed = artifacts.require("FastPriceFeed");
 const FastPriceEvents = artifacts.require("FastPriceEvents");
 const VaultPriceFeed = artifacts.require("VaultPriceFeed");
+const PositionRouter = artifacts.require("PositionRouter");
 
 const debug = "true";
 
@@ -52,6 +54,10 @@ module.exports = async function (deployer, network) {
 
     let VaultPriceFeedInst = await VaultPriceFeed.at(VAULT_PRICE_FEED);
     await VaultPriceFeedInst.setSecondaryPriceFeed(FastPriceFeedInst.address);
+
+    let PositionRouterInst = await PositionRouter.at(POSITION_ROUTER);
+    await PositionRouterInst.setPositionKeeper(FastPriceFeedInst.address, true);
+    await PositionRouterInst.setAdmin(GOV);
 
     console.log("FastPriceFeed =", FastPriceFeedInst.address);
 };

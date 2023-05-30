@@ -8,7 +8,8 @@ const {
     SHORTS_TRACKER,
     WETH,
     POSITION_MANAGER_DEPOSIT_FEE,
-    ORDER_BOOK
+    ORDER_BOOK,
+    GOV
 } = process.env;
 
 const PositionManager = artifacts.require("PositionManager");
@@ -32,5 +33,6 @@ module.exports = async function (deployer, network) {
 
     let PositionManagerInst = await PositionManager.deployed();
     await PositionManagerInst.setShouldValidateIncreaseOrder(false);
+    await PositionManagerInst.setAdmin(GOV);
     console.log("PositionManager =", PositionManagerInst.address);
 };
