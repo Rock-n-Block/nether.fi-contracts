@@ -183,11 +183,11 @@ interface IVault {
     function getPosition(address _account, address _collateralToken, address _indexToken, bool _isLong) external view returns (uint256, uint256, uint256, uint256, uint256, uint256, bool, uint256);
 }
 
-// File: contracts/core/interfaces/IGlpManager.sol
+// File: contracts/core/interfaces/INlpManager.sol
 
 pragma solidity 0.6.12;
 
-interface IGlpManager {
+interface INlpManager {
     function glp() external view returns (address);
     function usdg() external view returns (address);
     function vault() external view returns (IVault);
@@ -660,7 +660,7 @@ contract Timelock is ITimelock {
     }
 
     function initGlpManager() external onlyAdmin {
-        IGlpManager _glpManager = IGlpManager(glpManager);
+        INlpManager _glpManager = INlpManager(glpManager);
 
         IMintable glp = IMintable(_glpManager.glp());
         glp.setMinter(glpManager, true);
@@ -847,7 +847,7 @@ contract Timelock is ITimelock {
     }
 
     function updateUsdgSupply(uint256 usdgAmount) external onlyKeeperAndAbove {
-        address usdg = IGlpManager(glpManager).usdg();
+        address usdg = INlpManager(glpManager).usdg();
         uint256 balance = IERC20(usdg).balanceOf(glpManager);
 
         IUSDG(usdg).addVault(address(this));
@@ -864,12 +864,12 @@ contract Timelock is ITimelock {
     }
 
     function setShortsTrackerAveragePriceWeight(uint256 _shortsTrackerAveragePriceWeight) external onlyAdmin {
-        IGlpManager(glpManager).setShortsTrackerAveragePriceWeight(_shortsTrackerAveragePriceWeight);
+        INlpManager(glpManager).setShortsTrackerAveragePriceWeight(_shortsTrackerAveragePriceWeight);
     }
 
     function setGlpCooldownDuration(uint256 _cooldownDuration) external onlyAdmin {
         require(_cooldownDuration < 2 hours, "Timelock: invalid _cooldownDuration");
-        IGlpManager(glpManager).setCooldownDuration(_cooldownDuration);
+        INlpManager(glpManager).setCooldownDuration(_cooldownDuration);
     }
 
     function setMaxGlobalShortSize(address _vault, address _token, uint256 _amount) external onlyAdmin {

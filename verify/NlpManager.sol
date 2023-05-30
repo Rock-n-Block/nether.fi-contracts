@@ -710,11 +710,11 @@ interface IVault {
     function getPosition(address _account, address _collateralToken, address _indexToken, bool _isLong) external view returns (uint256, uint256, uint256, uint256, uint256, uint256, bool, uint256);
 }
 
-// File: contracts/core/interfaces/IGlpManager.sol
+// File: contracts/core/interfaces/INlpManager.sol
 
 pragma solidity 0.6.12;
 
-interface IGlpManager {
+interface INlpManager {
     function glp() external view returns (address);
     function usdg() external view returns (address);
     function vault() external view returns (IVault);
@@ -800,7 +800,7 @@ contract Governable {
     }
 }
 
-// File: contracts/core/GlpManager.sol
+// File: contracts/core/NlpManager.sol
 
 
 
@@ -812,7 +812,7 @@ contract Governable {
 
 pragma solidity 0.6.12;
 
-contract GlpManager is ReentrancyGuard, Governable, IGlpManager {
+contract NlpManager is ReentrancyGuard, Governable, INlpManager {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 

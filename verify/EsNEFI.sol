@@ -786,15 +786,15 @@ contract MintableBaseToken is BaseToken, IMintable {
     }
 }
 
-// File: contracts/tokens/EsGMX.sol
+// File: contracts/tokens/EsNEFI.sol
 
 pragma solidity 0.6.12;
 
-contract EsGMX is MintableBaseToken {
-    constructor() public MintableBaseToken("Escrowed GMX", "esGMX", 0) {
+contract EsNEFI is MintableBaseToken {
+    constructor() public MintableBaseToken("Escrowed NEFI", "esNEFI", 0) {
     }
 
     function id() external pure returns (string memory _name) {
-        return "esGMX";
+        return "esNEFI";
     }
 }

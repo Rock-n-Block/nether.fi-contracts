@@ -786,15 +786,15 @@ contract MintableBaseToken is BaseToken, IMintable {
     }
 }
 
-// File: contracts/tokens/GLP.sol
+// File: contracts/tokens/NLP.sol
 
 pragma solidity 0.6.12;
 
-contract GLP is MintableBaseToken {
-    constructor() public MintableBaseToken("GMX LP", "GLP", 0) {
+contract NLP is MintableBaseToken {
+    constructor() public MintableBaseToken("NEFI LP", "NLP", 0) {
     }
 
     function id() external pure returns (string memory _name) {
-        return "GLP";
+        return "NLP";
     }
 }

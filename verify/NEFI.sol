@@ -786,15 +786,15 @@ contract MintableBaseToken is BaseToken, IMintable {
     }
 }
 
-// File: contracts/tokens/GMX.sol
+// File: contracts/tokens/NEFI.sol
 
 pragma solidity 0.6.12;
 
-contract GMX is MintableBaseToken {
-    constructor() public MintableBaseToken("GMX", "GMX", 0) {
+contract NEFI is MintableBaseToken {
+    constructor() public MintableBaseToken("NEFI", "NEFI", 0) {
     }
 
     function id() external pure returns (string memory _name) {
-        return "GMX";
+        return "NEFI";
     }
 }

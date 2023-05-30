@@ -9,6 +9,7 @@ const {
     WETH,
     POSITION_MANAGER_DEPOSIT_FEE,
     ORDER_BOOK,
+    REFERRAL_STORAGE,
     GOV
 } = process.env;
 
@@ -33,6 +34,7 @@ module.exports = async function (deployer, network) {
 
     let PositionManagerInst = await PositionManager.deployed();
     await PositionManagerInst.setShouldValidateIncreaseOrder(false);
+    await PositionManagerInst.setReferralStorage(REFERRAL_STORAGE);
     await PositionManagerInst.setAdmin(GOV);
     console.log("PositionManager =", PositionManagerInst.address);
 };

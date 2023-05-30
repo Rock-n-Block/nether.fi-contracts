@@ -8,7 +8,8 @@ const {
     WETH,
     SHORTS_TRACKER,
     POSITION_ROUTER_DEPOSIT_FEE,
-    POSITION_ROUTER_MIN_EXECUTION_FEE
+    POSITION_ROUTER_MIN_EXECUTION_FEE,
+    REFERRAL_STORAGE
 } = process.env;
 
 const PositionRouter = artifacts.require("PositionRouter");
@@ -32,5 +33,6 @@ module.exports = async function (deployer, network) {
 
     let PositionRouterInst = await PositionRouter.deployed();
     await PositionRouterInst.setDelayValues(0, 180, 1800);
+    await PositionRouterInst.setReferralStorage(REFERRAL_STORAGE);
     console.log("PositionRouter =", PositionRouterInst.address);
 };
