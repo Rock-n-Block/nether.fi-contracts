@@ -14,6 +14,7 @@ const {
     NLP_MANAGER,
     SHORTS_TRACKER,
     POSITION_ROUTER,
+    ORDER_BOOK,
 
     VAULT_TAX_BASIS_POINTS,
     VAULT_STABLE_TAX_BASIS_POINTS,
@@ -43,6 +44,7 @@ console.log(VAULT_HAS_DYNAMIC_FEES);
 
 const Vault = artifacts.require("Vault");
 const ShortsTracker = artifacts.require("ShortsTracker");
+const Router = artifacts.require("Router");
 
 const debug = "true";
 
@@ -70,6 +72,11 @@ module.exports = async function (deployer, network) {
     let ShortsTrackerInst = await ShortsTracker.at(SHORTS_TRACKER);
     await ShortsTrackerInst.setHandler(POSITION_MANAGER, true);
     await ShortsTrackerInst.setHandler(POSITION_ROUTER, true);
+    
+    let RouterInst = await Router.at(ROUTER);
+    await RouterInst.addPlugin(POSITION_MANAGER);
+    await RouterInst.addPlugin(POSITION_ROUTER);
+    await RouterInst.addPlugin(ORDER_BOOK);
 
     console.log("Settings done");
 };
