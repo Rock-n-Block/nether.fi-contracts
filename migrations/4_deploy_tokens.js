@@ -5,10 +5,10 @@ require('dotenv').config();
 const {
 } = process.env;
 
-const GMX = artifacts.require("GMX");
-const EsGMX = artifacts.require("EsGMX");
-const BnGMX = artifacts.require("MintableBaseToken");
-const GLP = artifacts.require("GLP");
+const NEFI = artifacts.require("NEFI");
+const EsNEFI = artifacts.require("EsNEFI");
+const BnNEFI = artifacts.require("MintableBaseToken");
+const NLP = artifacts.require("NLP");
 
 const debug = "true";
 
@@ -24,30 +24,30 @@ module.exports = async function (deployer, network) {
         return;
 
     await deployer.deploy(
-        GMX
+        NEFI
     );
 
-    let GMXInst = await GMX.deployed();
-    console.log("GMX =", GMXInst.address);
+    let NEFIInst = await NEFI.deployed();
+    console.log("NEFI =", NEFIInst.address);
 
     await deployer.deploy(
-        EsGMX
+        EsNEFI
     );
 
-    let EsGMXInst = await EsGMX.deployed();
-    console.log("EsGMX =", EsGMXInst.address);
+    let EsNEFIInst = await EsNEFI.deployed();
+    console.log("EsNEFI =", EsNEFIInst.address);
 
     await deployer.deploy(
-        BnGMX, "Bonus GMX", "bnGMX", ZERO
+        BnNEFI, "Bonus NEFI", "bnNEFI", ZERO
     );
 
-    let BnGMXInst = await BnGMX.deployed();
-    console.log("BnGMX =", BnGMXInst.address);
+    let BnNEFIInst = await BnNEFI.deployed();
+    console.log("BnNEFI =", BnNEFIInst.address);
 
     await deployer.deploy(
-        GLP
+        NLP
     );
 
-    let GLPInst = await GLP.deployed();
-    console.log("GLP =", GLPInst.address);
+    let NLPInst = await NLP.deployed();
+    console.log("NLP =", NLPInst.address);
 };

@@ -4,29 +4,29 @@ require('dotenv').config();
 
 const {
     USDG,
-    GMX,
-    ESGMX,
-    BNGMX,
-    GLP,
-    REWARD_TRACKER_sGMX,
-    REWARD_TRACKER_sbGMX,
-    REWARD_TRACKER_sbfGMX,
-    REWARD_TRACKER_fGLP,
-    REWARD_TRACKER_fsGLP,
-    GLP_MANAGER,
-    VESTER_GMX,
-    VESTER_GLP,
+    NEFI,
+    ESNEFI,
+    BNNEFI,
+    NLP,
+    REWARD_TRACKER_sNEFI,
+    REWARD_TRACKER_sbNEFI,
+    REWARD_TRACKER_sbfNEFI,
+    REWARD_TRACKER_fNLP,
+    REWARD_TRACKER_fsNLP,
+    NLP_MANAGER,
+    VESTER_NEFI,
+    VESTER_NLP,
     REWARD_ROUTER
 } = process.env;
 
 const USDGCode = artifacts.require("USDG");
-const GMXCode = artifacts.require("GMX");
-const EsGMX = artifacts.require("EsGMX");
-const BnGMX = artifacts.require("MintableBaseToken");
-const GLPCode = artifacts.require("GLP");
+const NEFICode = artifacts.require("NEFI");
+const EsNEFI = artifacts.require("EsNEFI");
+const BnNEFI = artifacts.require("MintableBaseToken");
+const NLPCode = artifacts.require("NLP");
 const RewardTracker = artifacts.require("RewardTracker");
 const Vester = artifacts.require("Vester");
-const GlpManager = artifacts.require("GlpManager");
+const NlpManager = artifacts.require("NlpManager");
 
 const debug = "true";
 
@@ -42,64 +42,64 @@ module.exports = async function (deployer, network) {
         return;
 
     let USDGInst = await USDGCode.at(USDG);
-    await USDGInst.addVault(GLP_MANAGER);
+    await USDGInst.addVault(NLP_MANAGER);
 
-    let GMXInst = await GMXCode.at(GMX);
-    await GMXInst.setHandler(REWARD_TRACKER_sGMX, true);
+    let NEFIInst = await NEFICode.at(NEFI);
+    await NEFIInst.setHandler(REWARD_TRACKER_sNEFI, true);
 
-    let EsGMXInst = await EsGMX.at(ESGMX);
-    await EsGMXInst.setInPrivateTransferMode(true);
-    await EsGMXInst.setHandler(REWARD_TRACKER_sGMX, true);
-    await EsGMXInst.setHandler(VESTER_GMX, true);
-    await EsGMXInst.setHandler(VESTER_GLP, true);
+    let EsNEFIInst = await EsNEFI.at(ESNEFI);
+    await EsNEFIInst.setInPrivateTransferMode(true);
+    await EsNEFIInst.setHandler(REWARD_TRACKER_sNEFI, true);
+    await EsNEFIInst.setHandler(VESTER_NEFI, true);
+    await EsNEFIInst.setHandler(VESTER_NLP, true);
 
-    let BnGMXInst = await BnGMX.at(BNGMX);
-    await BnGMXInst.setHandler(REWARD_TRACKER_sbfGMX, true);
+    let BnNEFIInst = await BnNEFI.at(BNNEFI);
+    await BnNEFIInst.setHandler(REWARD_TRACKER_sbfNEFI, true);
 
-    let GLPInst = await GLPCode.at(GLP);
-    await GLPInst.setInPrivateTransferMode(true);
-    await GLPInst.setMinter(GLP_MANAGER, true);
-    await GLPInst.setHandler(REWARD_TRACKER_fGLP, true);
+    let NLPInst = await NLPCode.at(NLP);
+    await NLPInst.setInPrivateTransferMode(true);
+    await NLPInst.setMinter(NLP_MANAGER, true);
+    await NLPInst.setHandler(REWARD_TRACKER_fNLP, true);
 
-    let sGMX = await RewardTracker.at(REWARD_TRACKER_sGMX);
-    await sGMX.setInPrivateTransferMode(true);
-    await sGMX.setInPrivateStakingMode(true);
-    await sGMX.setHandler(REWARD_ROUTER, true);
-    await sGMX.setHandler(REWARD_TRACKER_sbGMX, true);
+    let sNEFI = await RewardTracker.at(REWARD_TRACKER_sNEFI);
+    await sNEFI.setInPrivateTransferMode(true);
+    await sNEFI.setInPrivateStakingMode(true);
+    await sNEFI.setHandler(REWARD_ROUTER, true);
+    await sNEFI.setHandler(REWARD_TRACKER_sbNEFI, true);
 
-    let sbGMX = await RewardTracker.at(REWARD_TRACKER_sbGMX);
-    await sbGMX.setInPrivateTransferMode(true);
-    await sbGMX.setInPrivateStakingMode(true);
-    await sbGMX.setInPrivateClaimingMode(true);
-    await sbGMX.setHandler(REWARD_ROUTER, true);
-    await sbGMX.setHandler(REWARD_TRACKER_sbfGMX, true);
+    let sbNEFI = await RewardTracker.at(REWARD_TRACKER_sbNEFI);
+    await sbNEFI.setInPrivateTransferMode(true);
+    await sbNEFI.setInPrivateStakingMode(true);
+    await sbNEFI.setInPrivateClaimingMode(true);
+    await sbNEFI.setHandler(REWARD_ROUTER, true);
+    await sbNEFI.setHandler(REWARD_TRACKER_sbfNEFI, true);
 
-    let sbfGMX = await RewardTracker.at(REWARD_TRACKER_sbfGMX);
-    await sbfGMX.setInPrivateTransferMode(true);
-    await sbfGMX.setInPrivateStakingMode(true);
-    await sbfGMX.setHandler(REWARD_ROUTER, true);
-    await sbfGMX.setHandler(VESTER_GMX, true);
+    let sbfNEFI = await RewardTracker.at(REWARD_TRACKER_sbfNEFI);
+    await sbfNEFI.setInPrivateTransferMode(true);
+    await sbfNEFI.setInPrivateStakingMode(true);
+    await sbfNEFI.setHandler(REWARD_ROUTER, true);
+    await sbfNEFI.setHandler(VESTER_NEFI, true);
 
-    let fGLP = await RewardTracker.at(REWARD_TRACKER_fGLP);
-    await fGLP.setInPrivateTransferMode(true);
-    await fGLP.setInPrivateStakingMode(true);
-    await fGLP.setHandler(REWARD_ROUTER, true);
-    await fGLP.setHandler(REWARD_TRACKER_fsGLP, true);
+    let fNLP = await RewardTracker.at(REWARD_TRACKER_fNLP);
+    await fNLP.setInPrivateTransferMode(true);
+    await fNLP.setInPrivateStakingMode(true);
+    await fNLP.setHandler(REWARD_ROUTER, true);
+    await fNLP.setHandler(REWARD_TRACKER_fsNLP, true);
 
-    let fsGLP = await RewardTracker.at(REWARD_TRACKER_fsGLP);
-    await fsGLP.setInPrivateTransferMode(true);
-    await fsGLP.setInPrivateStakingMode(true);
-    await fsGLP.setHandler(REWARD_ROUTER, true);
-    await fsGLP.setHandler(VESTER_GLP, true);
+    let fsNLP = await RewardTracker.at(REWARD_TRACKER_fsNLP);
+    await fsNLP.setInPrivateTransferMode(true);
+    await fsNLP.setInPrivateStakingMode(true);
+    await fsNLP.setHandler(REWARD_ROUTER, true);
+    await fsNLP.setHandler(VESTER_NLP, true);
 
-    let VesterGmx = await Vester.at(VESTER_GMX);
-    await VesterGmx.setHandler(REWARD_ROUTER, true);
-    let VesterGlp = await Vester.at(VESTER_GLP);
-    await VesterGlp.setHandler(REWARD_ROUTER, true);
+    let VesterNEFI = await Vester.at(VESTER_NEFI);
+    await VesterNEFI.setHandler(REWARD_ROUTER, true);
+    let VesterNLP = await Vester.at(VESTER_NLP);
+    await VesterNLP.setHandler(REWARD_ROUTER, true);
 
-    let GlpManagerInst = await GlpManager.at(GLP_MANAGER);
-    await GlpManagerInst.setInPrivateMode(true);
-    await GlpManagerInst.setHandler(REWARD_ROUTER, true);
+    let NlpManagerInst = await NlpManager.at(NLP_MANAGER);
+    await NlpManagerInst.setInPrivateMode(true);
+    await NlpManagerInst.setHandler(REWARD_ROUTER, true);
 
     console.log("Settings done");
 };

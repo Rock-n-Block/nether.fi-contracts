@@ -3,10 +3,10 @@ const BN = require('bn.js');
 require('dotenv').config();
 
 const {
-    GMX,
-    ESGMX,
-    BNGMX,
-    GLP,
+    NEFI,
+    ESNEFI,
+    BNNEFI,
+    NLP,
     WETH
 } = process.env;
 
@@ -26,38 +26,38 @@ module.exports = async function (deployer, network) {
     if (network == "test" || network == "development")
         return;
 
-    //sGMX: gmx, esgmx
-    //sbGMX: sGMX
-    //sbfGMX: sbGMX, bnGMX
-    //fGLP: GLP
-    //fsGLP: fGLP
+    //sNEFI: NEFI, esNEFI
+    //sbNEFI: sNEFI
+    //sbfNEFI: sbNEFI, bnNEFI
+    //fNLP: NLP
+    //fsNLP: fNLP
 
     await deployer.deploy(
-        RewardTracker, "Staked GMX", "sGMX"
+        RewardTracker, "Staked NEFI", "sNEFI"
     );
 
     let RewardTrackerInstOne = await RewardTracker.deployed();
     console.log("RewardTracker 1 =", RewardTrackerInstOne.address);
 
     await deployer.deploy(
-        RewardDistributor, ESGMX, RewardTrackerInstOne.address
+        RewardDistributor, ESNEFI, RewardTrackerInstOne.address
     );
 
     let RewardDistributorInstOne = await RewardDistributor.deployed();
     console.log("RewardDistributor 1 =", RewardDistributorInstOne.address);
 
-    await RewardTrackerInstOne.initialize([GMX, ESGMX], RewardDistributorInstOne.address);
+    await RewardTrackerInstOne.initialize([NEFI, ESNEFI], RewardDistributorInstOne.address);
 
     //SECOND
     await deployer.deploy(
-        RewardTracker, "Staked + Bonus GMX", "sbGMX"
+        RewardTracker, "Staked + Bonus NEFI", "sbNEFI"
     );
 
     let RewardTrackerInstTwo = await RewardTracker.deployed();
     console.log("RewardTracker 2 =", RewardTrackerInstTwo.address);
 
     await deployer.deploy(
-        RewardDistributor, BNGMX, RewardTrackerInstTwo.address
+        RewardDistributor, BNNEFI, RewardTrackerInstTwo.address
     );
 
     let RewardDistributorInstTwo = await RewardDistributor.deployed();
@@ -67,7 +67,7 @@ module.exports = async function (deployer, network) {
 
     //THIRD
     await deployer.deploy(
-        RewardTracker, "Staked + Bonus + Fee GMX", "sbfGMX"
+        RewardTracker, "Staked + Bonus + Fee NEFI", "sbfNEFI"
     );
 
     let RewardTrackerInstThree = await RewardTracker.deployed();
@@ -80,11 +80,11 @@ module.exports = async function (deployer, network) {
     let RewardDistributorInstThree = await RewardDistributor.deployed();
     console.log("RewardDistributor 3 =", RewardDistributorInstThree.address);
 
-    await RewardTrackerInstThree.initialize([RewardTrackerInstTwo.address, BNGMX], RewardDistributorInstThree.address);
+    await RewardTrackerInstThree.initialize([RewardTrackerInstTwo.address, BNNEFI], RewardDistributorInstThree.address);
 
     //FOURTH
     await deployer.deploy(
-        RewardTracker, "Fee GLP", "fGLP"
+        RewardTracker, "Fee NLP", "fNLP"
     );
 
     let RewardTrackerInstFour = await RewardTracker.deployed();
@@ -97,18 +97,18 @@ module.exports = async function (deployer, network) {
     let RewardDistributorInstFour = await RewardDistributor.deployed();
     console.log("RewardDistributor 4 =", RewardDistributorInstFour.address);
 
-    await RewardTrackerInstFour.initialize([GLP], RewardDistributorInstFour.address);
+    await RewardTrackerInstFour.initialize([NLP], RewardDistributorInstFour.address);
 
     //FIFTH
     await deployer.deploy(
-        RewardTracker, "Fee + Staked GLP", "fsGLP"
+        RewardTracker, "Fee + Staked NLP", "fsNLP"
     );
 
     let RewardTrackerInstFive = await RewardTracker.deployed();
     console.log("RewardTracker 5 =", RewardTrackerInstFive.address);
 
     await deployer.deploy(
-        RewardDistributor, ESGMX, RewardTrackerInstFive.address
+        RewardDistributor, ESNEFI, RewardTrackerInstFive.address
     );
 
     let RewardDistributorInstFive = await RewardDistributor.deployed();

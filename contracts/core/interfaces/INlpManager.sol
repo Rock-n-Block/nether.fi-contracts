@@ -4,7 +4,7 @@ pragma solidity 0.6.12;
 
 import "./IVault.sol";
 
-interface IGlpManager {
+interface INlpManager {
     function glp() external view returns (address);
     function usdg() external view returns (address);
     function vault() external view returns (IVault);

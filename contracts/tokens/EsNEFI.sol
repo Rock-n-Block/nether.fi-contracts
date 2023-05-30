@@ -4,11 +4,11 @@ pragma solidity 0.6.12;
 
 import "../tokens/MintableBaseToken.sol";
 
-contract GLP is MintableBaseToken {
-    constructor() public MintableBaseToken("GMX LP", "GLP", 0) {
+contract EsNEFI is MintableBaseToken {
+    constructor() public MintableBaseToken("Escrowed NEFI", "esNEFI", 0) {
     }
 
     function id() external pure returns (string memory _name) {
-        return "GLP";
+        return "esNEFI";
     }
 }

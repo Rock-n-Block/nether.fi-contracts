@@ -4,18 +4,18 @@ require('dotenv').config();
 
 const {
     WETH,
-    GMX,
-    ESGMX,
-    BNGMX,
-    GLP,
-    REWARD_TRACKER_sGMX,
-    REWARD_TRACKER_sbGMX,
-    REWARD_TRACKER_sbfGMX,
-    REWARD_TRACKER_fGLP,
-    REWARD_TRACKER_fsGLP,
-    GLP_MANAGER,
-    VESTER_GMX,
-    VESTER_GLP
+    NEFI,
+    ESNEFI,
+    BNNEFI,
+    NLP,
+    REWARD_TRACKER_sNEFI,
+    REWARD_TRACKER_sbNEFI,
+    REWARD_TRACKER_sbfNEFI,
+    REWARD_TRACKER_fNLP,
+    REWARD_TRACKER_fsNLP,
+    NLP_MANAGER,
+    VESTER_NEFI,
+    VESTER_NLP
 } = process.env;
 
 const RewardRouterV2 = artifacts.require("RewardRouterV2");
@@ -38,6 +38,6 @@ module.exports = async function (deployer, network) {
     );
 
     let RewardRouterV2Inst = await RewardRouterV2.deployed();
-    await RewardRouterV2Inst.initialize(WETH, GMX, ESGMX, BNGMX, GLP, REWARD_TRACKER_sGMX, REWARD_TRACKER_sbGMX, REWARD_TRACKER_sbfGMX, REWARD_TRACKER_fGLP, REWARD_TRACKER_fsGLP, GLP_MANAGER, VESTER_GMX, VESTER_GLP);
+    await RewardRouterV2Inst.initialize(WETH, NEFI, ESNEFI, BNNEFI, NLP, REWARD_TRACKER_sNEFI, REWARD_TRACKER_sbNEFI, REWARD_TRACKER_sbfNEFI, REWARD_TRACKER_fNLP, REWARD_TRACKER_fsNLP, NLP_MANAGER, VESTER_NEFI, VESTER_NLP);
     console.log("RewardRouterV2 =", RewardRouterV2Inst.address);
 };

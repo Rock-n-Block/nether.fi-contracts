@@ -11,7 +11,7 @@ const {
     VAULT_FUNDING_RATE_FACTOR,
     VAULT_STABLE_FUNDING_RATE_FACTOR,
     POSITION_MANAGER,
-    GLP_MANAGER,
+    NLP_MANAGER,
     SHORTS_TRACKER,
     POSITION_ROUTER,
 
@@ -65,7 +65,7 @@ module.exports = async function (deployer, network) {
     await VaultInst.setInManagerMode(true);
     await VaultInst.setInPrivateLiquidationMode(true);
     await VaultInst.setLiquidator(POSITION_MANAGER, true);
-    await VaultInst.setManager(GLP_MANAGER, true);
+    await VaultInst.setManager(NLP_MANAGER, true);
 
     let ShortsTrackerInst = await ShortsTracker.at(SHORTS_TRACKER);
     await ShortsTrackerInst.setHandler(POSITION_MANAGER, true);

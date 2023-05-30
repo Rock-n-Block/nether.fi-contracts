@@ -3,11 +3,11 @@ const BN = require('bn.js');
 require('dotenv').config();
 
 const {
-    GMX,
-    ESGMX,
-    REWARD_TRACKER_sGMX,
-    REWARD_TRACKER_sbfGMX,
-    REWARD_TRACKER_fsGLP,
+    NEFI,
+    ESNEFI,
+    REWARD_TRACKER_sNEFI,
+    REWARD_TRACKER_sbfNEFI,
+    REWARD_TRACKER_fsNLP,
     VESTER_VESTING_DURATION
 } = process.env;
 
@@ -27,14 +27,14 @@ module.exports = async function (deployer, network) {
         return;
 
     await deployer.deploy(
-        Vester, "Vested GMX", "vGMX", VESTER_VESTING_DURATION, ESGMX, REWARD_TRACKER_sbfGMX, GMX, REWARD_TRACKER_sGMX
+        Vester, "Vested NEFI", "vNEFI", VESTER_VESTING_DURATION, ESNEFI, REWARD_TRACKER_sbfNEFI, NEFI, REWARD_TRACKER_sNEFI
     );
 
     let VesterInstOne = await Vester.deployed();
     console.log("Vester 1 =", VesterInstOne.address);
 
     await deployer.deploy(
-        Vester, "Vested GLP", "vGLP", VESTER_VESTING_DURATION, ESGMX, REWARD_TRACKER_fsGLP, GMX, REWARD_TRACKER_fsGLP
+        Vester, "Vested NLP", "vNLP", VESTER_VESTING_DURATION, ESNEFI, REWARD_TRACKER_fsNLP, NEFI, REWARD_TRACKER_fsNLP
     );
 
     let VesterInstTwo = await Vester.deployed();

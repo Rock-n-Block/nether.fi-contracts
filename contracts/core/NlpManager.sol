@@ -6,7 +6,7 @@ import "../libraries/token/SafeERC20.sol";
 import "../libraries/utils/ReentrancyGuard.sol";
 
 import "./interfaces/IVault.sol";
-import "./interfaces/IGlpManager.sol";
+import "./interfaces/INlpManager.sol";
 import "./interfaces/IShortsTracker.sol";
 import "../tokens/interfaces/IUSDG.sol";
 import "../tokens/interfaces/IMintable.sol";
@@ -14,7 +14,7 @@ import "../access/Governable.sol";
 
 pragma solidity 0.6.12;
 
-contract GlpManager is ReentrancyGuard, Governable, IGlpManager {
+contract NlpManager is ReentrancyGuard, Governable, INlpManager {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 

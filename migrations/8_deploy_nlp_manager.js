@@ -5,12 +5,12 @@ require('dotenv').config();
 const {
     VAULT,
     USDG,
-    GLP,
+    NLP,
     SHORTS_TRACKER,
-    GLP_MANAGER_COOLDOWN_DURATION
+    NLP_MANAGER_COOLDOWN_DURATION
 } = process.env;
 
-const GlpManager = artifacts.require("GlpManager");
+const NlpManager = artifacts.require("NlpManager");
 
 const debug = "true";
 
@@ -26,9 +26,9 @@ module.exports = async function (deployer, network) {
         return;
 
     await deployer.deploy(
-        GlpManager, VAULT, USDG, GLP, SHORTS_TRACKER, GLP_MANAGER_COOLDOWN_DURATION
+        NlpManager, VAULT, USDG, NLP, SHORTS_TRACKER, NLP_MANAGER_COOLDOWN_DURATION
     );
 
-    let GlpManagerInst = await GlpManager.deployed();
-    console.log("GlpManager =", GlpManagerInst.address);
+    let NlpManagerInst = await NlpManager.deployed();
+    console.log("NlpManager =", NlpManagerInst.address);
 };
