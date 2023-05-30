@@ -48,6 +48,7 @@ module.exports = async function (deployer, network) {
     await FastPriceFeedInst.setPriceDataInterval(FPF_PRICE_DATA_INTERVAL);
     await FastPriceFeedInst.setSpreadBasisPointsIfInactive(FPF_SPREAD_BASIS_POINTS_IF_INACTIVE);
     await FastPriceFeedInst.setSpreadBasisPointsIfChainError(FPF_SPREAD_BASIS_POINTS_IF_CHAIN_ERROR);
+    await FastPriceFeedInst.setVaultPriceFeed(VAULT_PRICE_FEED);
 
     let FastPriceEventsInst = await FastPriceEvents.at(FAST_PRICE_EVENTS);
     await FastPriceEventsInst.setIsPriceFeed(FastPriceFeedInst.address, true);
