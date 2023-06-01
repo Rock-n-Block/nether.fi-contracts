@@ -15,6 +15,7 @@ const {
     SHORTS_TRACKER,
     POSITION_ROUTER,
     ORDER_BOOK,
+    REFERRAL_STORAGE,
 
     VAULT_TAX_BASIS_POINTS,
     VAULT_STABLE_TAX_BASIS_POINTS,
@@ -45,6 +46,7 @@ console.log(VAULT_HAS_DYNAMIC_FEES);
 const Vault = artifacts.require("Vault");
 const ShortsTracker = artifacts.require("ShortsTracker");
 const Router = artifacts.require("Router");
+const ReferralStorage = artifacts.require("ReferralStorage");
 
 const debug = "true";
 
@@ -77,6 +79,9 @@ module.exports = async function (deployer, network) {
     await RouterInst.addPlugin(POSITION_MANAGER);
     await RouterInst.addPlugin(POSITION_ROUTER);
     await RouterInst.addPlugin(ORDER_BOOK);
+    
+    let ReferralStorageInst = await ReferralStorage.at(REFERRAL_STORAGE);
+    await ReferralStorageInst.setHandler(POSITION_ROUTER, true);
 
     console.log("Settings done");
 };
