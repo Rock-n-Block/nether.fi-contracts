@@ -14,7 +14,9 @@ const {
     TIMELOCK_MAX_MARGIN_FEE_BASIS_POINTS,
     GOV,
     TIMELOCK_AVERAGE_PRICE_UPDATE_DELAY,
-    TIMELOCK_MAX_AVERAGE_PRICE_CHANGE
+    TIMELOCK_MAX_AVERAGE_PRICE_CHANGE,
+    POSITION_MANAGER,
+    POSITION_ROUTER
 } = process.env;
 
 const Timelock = artifacts.require("Timelock");
@@ -39,6 +41,8 @@ module.exports = async function (deployer, network) {
 
     let TimelockInst = await Timelock.deployed();
     await TimelockInst.setShouldToggleIsLeverageEnabled(true);
+    await TimelockInst.setContractHandler(POSITION_MANAGER, true);
+    await TimelockInst.setContractHandler(POSITION_ROUTER, true);
     console.log("Timelock =", TimelockInst.address);
     console.log("Request token manager to set timelock admin to gov");
 
