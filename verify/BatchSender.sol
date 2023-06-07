@@ -238,14 +238,30 @@ library SafeMath {
     }
 }
 
-// File: contracts/peripherals/BatchSender.sol
+// File: contracts/access/Governable.sol
 
 pragma solidity 0.6.12;
 
-import "../libraries/token/IERC20.sol";
-import "../libraries/math/SafeMath.sol";
+contract Governable {
+    address public gov;
 
-import "../access/Governable.sol";
+    constructor() public {
+        gov = msg.sender;
+    }
+
+    modifier onlyGov() {
+        require(msg.sender == gov, "Governable: forbidden");
+        _;
+    }
+
+    function setGov(address _gov) external onlyGov {
+        gov = _gov;
+    }
+}
+
+// File: contracts/peripherals/BatchSender.sol
+
+pragma solidity 0.6.12;
 
 contract BatchSender is Governable {
     using SafeMath for uint256;
