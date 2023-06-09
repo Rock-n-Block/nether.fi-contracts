@@ -16,7 +16,12 @@ const {
     NLP_MANAGER,
     VESTER_NEFI,
     VESTER_NLP,
-    REWARD_ROUTER
+    REWARD_ROUTER,
+    
+    BACKEND_MAIN,
+    DISTRIBUTOR_sNEFI,
+    DISTRIBUTOR_fsNLP,
+    BATCH_SENDER
 } = process.env;
 
 const USDGCode = artifacts.require("USDG");
@@ -52,6 +57,15 @@ module.exports = async function (deployer, network) {
     await EsNEFIInst.setHandler(REWARD_TRACKER_sNEFI, true);
     await EsNEFIInst.setHandler(VESTER_NEFI, true);
     await EsNEFIInst.setHandler(VESTER_NLP, true);
+    await EsNEFIInst.setHandler(BACKEND_MAIN, true); // new {
+    await EsNEFIInst.setHandler(REWARD_TRACKER_fsNLP, true);
+    await EsNEFIInst.setHandler(REWARD_ROUTER, true);
+    await EsNEFIInst.setHandler(DISTRIBUTOR_sNEFI, true);
+    await EsNEFIInst.setHandler(DISTRIBUTOR_fsNLP, true);
+    await EsNEFIInst.setHandler(BATCH_SENDER, true);
+    await EsNEFIInst.setMinter(BACKEND_MAIN, true);
+    await EsNEFIInst.setMinter(VESTER_NEFI, true);
+    await EsNEFIInst.setMinter(VESTER_NLP, true); // }
 
     let BnNEFIInst = await BnNEFI.at(BNNEFI);
     await BnNEFIInst.setHandler(REWARD_TRACKER_sbfNEFI, true);
