@@ -16,7 +16,9 @@ const {
     DEPLOYER,
     POSITION_ROUTER,
     VAULT_PRICE_FEED,
-    GOV
+    GOV,
+    
+    BACKEND_FAST_PRICE_FEED // new
 } = process.env;
 
 const FastPriceFeed = artifacts.require("FastPriceFeed");
@@ -49,6 +51,8 @@ module.exports = async function (deployer, network) {
     await FastPriceFeedInst.setSpreadBasisPointsIfInactive(FPF_SPREAD_BASIS_POINTS_IF_INACTIVE);
     await FastPriceFeedInst.setSpreadBasisPointsIfChainError(FPF_SPREAD_BASIS_POINTS_IF_CHAIN_ERROR);
     await FastPriceFeedInst.setVaultPriceFeed(VAULT_PRICE_FEED);
+    await FastPriceFeedInst.setSigner(BACKEND_FAST_PRICE_FEED, true); // new
+    await FastPriceFeedInst.setUpdater(BACKEND_FAST_PRICE_FEED, true); // new
 
     let FastPriceEventsInst = await FastPriceEvents.at(FAST_PRICE_EVENTS);
     await FastPriceEventsInst.setIsPriceFeed(FastPriceFeedInst.address, true);
