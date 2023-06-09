@@ -5,9 +5,6 @@ require('dotenv').config();
 const {
     GOV,
     TIMELOCK,
-    TIMELOCK_SHORTS_TRACKER,
-
-    SHORTS_TRACKER,
 
     VAULT,
     USDG,
@@ -70,9 +67,6 @@ module.exports = async function (deployer, network) {
     if (network == "test" || network == "development")
         return;
 
-    let GovernableInst = await Governable.at(SHORTS_TRACKER);
-    await GovernableInst.setGov(TIMELOCK_SHORTS_TRACKER);
-
     console.log("timelock list");
     for (let i = 0; i < TimelockList.length; i++) {
         console.log(i);
@@ -86,4 +80,6 @@ module.exports = async function (deployer, network) {
         GovernableInst = await Governable.at(GovList[i]);
         await GovernableInst.setGov(GOV);
     }
+    
+    console.log("Call ShortsTracker's setInitData and setGov to ShortsTrackerTimelock");
 };
