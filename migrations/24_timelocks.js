@@ -48,11 +48,15 @@ module.exports = async function (deployer, network) {
     await TimelockInst.setKeeper(BACKEND_MAIN, true); // new
     console.log("Timelock =", TimelockInst.address);
     console.log("Request token manager to set timelock admin to gov");
-
+    
+    // changed admin from gov to deployer
     await deployer.deploy(
-        ShortsTrackerTimelock, GOV, TIMELOCK_BUFFER, TIMELOCK_AVERAGE_PRICE_UPDATE_DELAY, TIMELOCK_MAX_AVERAGE_PRICE_CHANGE
+        ShortsTrackerTimelock, DEPLOYER, TIMELOCK_BUFFER, TIMELOCK_AVERAGE_PRICE_UPDATE_DELAY, TIMELOCK_MAX_AVERAGE_PRICE_CHANGE
     );
 
     let ShortsTrackerTimelockInst = await ShortsTrackerTimelock.deployed();
+    await ShortsTrackerTimelockInst.setHandler(BACKEND_MAIN, true); // new
+    await ShortsTrackerTimelockInst.signalSetAdmin(GOV); // new
     console.log("ShortsTrackerTimelock =", ShortsTrackerTimelockInst.address);
+    console.log("Call setAdmin(GOV) 5 minutes later"); // new
 };
