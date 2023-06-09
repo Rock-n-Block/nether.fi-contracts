@@ -17,9 +17,12 @@ const {
     VESTER_NEFI,
     VESTER_NLP,
     REWARD_ROUTER,
-    
+    // -------------------NEW-----------------------------
     BACKEND_MAIN,
     DISTRIBUTOR_sNEFI,
+    DISTRIBUTOR_sbNEFI,
+    DISTRIBUTOR_sbfNEFI,
+    DISTRIBUTOR_fNLP,
     DISTRIBUTOR_fsNLP,
     BATCH_SENDER
 } = process.env;
@@ -32,6 +35,8 @@ const NLPCode = artifacts.require("NLP");
 const RewardTracker = artifacts.require("RewardTracker");
 const Vester = artifacts.require("Vester");
 const NlpManager = artifacts.require("NlpManager");
+// -------------------NEW-----------------------------
+const RewardDistributor = artifacts.require("RewardDistributor");
 
 const debug = "true";
 
@@ -114,6 +119,22 @@ module.exports = async function (deployer, network) {
     let NlpManagerInst = await NlpManager.at(NLP_MANAGER);
     await NlpManagerInst.setInPrivateMode(true);
     await NlpManagerInst.setHandler(REWARD_ROUTER, true);
+    
+    // ------------------NEW--------------------------------
+    let RewardDistributorOne = await RewardDistributor.at(DISTRIBUTOR_sNEFI);
+    await RewardDistributorOne.setAdmin(BACKEND_MAIN);
+    
+    let RewardDistributorTwo = await RewardDistributor.at(DISTRIBUTOR_sbNEFI);
+    await RewardDistributorTwo.setAdmin(BACKEND_MAIN);
+    
+    let RewardDistributorThree = await RewardDistributor.at(DISTRIBUTOR_sbfNEFI);
+    await RewardDistributorThree.setAdmin(BACKEND_MAIN);
+    
+    let RewardDistributorFour = await RewardDistributor.at(DISTRIBUTOR_fNLP);
+    await RewardDistributorFour.setAdmin(BACKEND_MAIN);
+    
+    let RewardDistributorFive = await RewardDistributor.at(DISTRIBUTOR_fsNLP);
+    await RewardDistributorFive.setAdmin(BACKEND_MAIN);
 
     console.log("Settings done");
 };
