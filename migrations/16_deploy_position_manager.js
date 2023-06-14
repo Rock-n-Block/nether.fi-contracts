@@ -12,8 +12,8 @@ const {
     REFERRAL_STORAGE,
     GOV,
     
-    BACKEND_LIQUIDATOR, // new
-    BACKEND_ORDER_KEEPER // new
+    BACKEND_LIQUIDATOR,
+    BACKEND_ORDER_KEEPER 
 } = process.env;
 
 const PositionManager = artifacts.require("PositionManager");
@@ -38,8 +38,8 @@ module.exports = async function (deployer, network) {
     let PositionManagerInst = await PositionManager.deployed();
     await PositionManagerInst.setShouldValidateIncreaseOrder(false);
     await PositionManagerInst.setReferralStorage(REFERRAL_STORAGE);
-    await PositionManagerInst.setLiquidator(BACKEND_LIQUIDATOR, true); // new
-    await PositionManagerInst.setOrderKeeper(BACKEND_ORDER_KEEPER, true); // new
+    await PositionManagerInst.setLiquidator(BACKEND_LIQUIDATOR, true); 
+    await PositionManagerInst.setOrderKeeper(BACKEND_ORDER_KEEPER, true); 
     await PositionManagerInst.setAdmin(GOV);
     console.log("PositionManager =", PositionManagerInst.address);
 };

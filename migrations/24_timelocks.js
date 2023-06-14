@@ -17,8 +17,7 @@ const {
     TIMELOCK_MAX_AVERAGE_PRICE_CHANGE,
     POSITION_MANAGER,
     POSITION_ROUTER,
-    
-    BACKEND_MAIN // new
+    BACKEND_MAIN 
 } = process.env;
 
 const Timelock = artifacts.require("Timelock");
@@ -45,18 +44,17 @@ module.exports = async function (deployer, network) {
     await TimelockInst.setShouldToggleIsLeverageEnabled(true);
     await TimelockInst.setContractHandler(POSITION_MANAGER, true);
     await TimelockInst.setContractHandler(POSITION_ROUTER, true);
-    await TimelockInst.setKeeper(BACKEND_MAIN, true); // new
+    await TimelockInst.setKeeper(BACKEND_MAIN, true); 
     console.log("Timelock =", TimelockInst.address);
     console.log("Request token manager to set timelock admin to gov");
     
-    // changed admin from gov to deployer
     await deployer.deploy(
         ShortsTrackerTimelock, DEPLOYER, TIMELOCK_BUFFER, TIMELOCK_AVERAGE_PRICE_UPDATE_DELAY, TIMELOCK_MAX_AVERAGE_PRICE_CHANGE
     );
 
     let ShortsTrackerTimelockInst = await ShortsTrackerTimelock.deployed();
-    await ShortsTrackerTimelockInst.setHandler(BACKEND_MAIN, true); // new
-    await ShortsTrackerTimelockInst.signalSetAdmin(GOV); // new
+    await ShortsTrackerTimelockInst.setHandler(BACKEND_MAIN, true); 
+    await ShortsTrackerTimelockInst.signalSetAdmin(GOV); 
     console.log("ShortsTrackerTimelock =", ShortsTrackerTimelockInst.address);
-    console.log("Call setAdmin(GOV) 5 minutes later"); // new
+    console.log("Call setAdmin(GOV) 5 minutes later"); 
 };

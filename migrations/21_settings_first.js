@@ -17,7 +17,6 @@ const {
     VESTER_NEFI,
     VESTER_NLP,
     REWARD_ROUTER,
-    // -------------------NEW-----------------------------
     BACKEND_MAIN,
     DISTRIBUTOR_sNEFI,
     DISTRIBUTOR_sbNEFI,
@@ -35,7 +34,6 @@ const NLPCode = artifacts.require("NLP");
 const RewardTracker = artifacts.require("RewardTracker");
 const Vester = artifacts.require("Vester");
 const NlpManager = artifacts.require("NlpManager");
-// -------------------NEW-----------------------------
 const RewardDistributor = artifacts.require("RewardDistributor");
 
 const debug = "true";
@@ -62,7 +60,7 @@ module.exports = async function (deployer, network) {
     await EsNEFIInst.setHandler(REWARD_TRACKER_sNEFI, true);
     await EsNEFIInst.setHandler(VESTER_NEFI, true);
     await EsNEFIInst.setHandler(VESTER_NLP, true);
-    await EsNEFIInst.setHandler(BACKEND_MAIN, true); // new {
+    await EsNEFIInst.setHandler(BACKEND_MAIN, true); 
     await EsNEFIInst.setHandler(REWARD_TRACKER_fsNLP, true);
     await EsNEFIInst.setHandler(REWARD_ROUTER, true);
     await EsNEFIInst.setHandler(DISTRIBUTOR_sNEFI, true);
@@ -70,11 +68,11 @@ module.exports = async function (deployer, network) {
     await EsNEFIInst.setHandler(BATCH_SENDER, true);
     await EsNEFIInst.setMinter(BACKEND_MAIN, true);
     await EsNEFIInst.setMinter(VESTER_NEFI, true);
-    await EsNEFIInst.setMinter(VESTER_NLP, true); // }
+    await EsNEFIInst.setMinter(VESTER_NLP, true);
 
     let BnNEFIInst = await BnNEFI.at(BNNEFI);
     await BnNEFIInst.setHandler(REWARD_TRACKER_sbfNEFI, true);
-    await BnNEFIInst.setMinter(REWARD_ROUTER, true); // new
+    await BnNEFIInst.setMinter(REWARD_ROUTER, true); 
 
     let NLPInst = await NLPCode.at(NLP);
     await NLPInst.setInPrivateTransferMode(true);
@@ -121,7 +119,6 @@ module.exports = async function (deployer, network) {
     await NlpManagerInst.setInPrivateMode(true);
     await NlpManagerInst.setHandler(REWARD_ROUTER, true);
     
-    // ------------------NEW--------------------------------
     let RewardDistributorOne = await RewardDistributor.at(DISTRIBUTOR_sNEFI);
     await RewardDistributorOne.setAdmin(BACKEND_MAIN);
     
