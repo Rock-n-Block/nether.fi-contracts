@@ -35,6 +35,7 @@ const RewardTracker = artifacts.require("RewardTracker");
 const Vester = artifacts.require("Vester");
 const NlpManager = artifacts.require("NlpManager");
 const RewardDistributor = artifacts.require("RewardDistributor");
+const BatchSender = artifacts.require("BatchSender");
 
 const debug = "true";
 
@@ -133,6 +134,9 @@ module.exports = async function (deployer, network) {
     
     let RewardDistributorFive = await RewardDistributor.at(DISTRIBUTOR_fsNLP);
     await RewardDistributorFive.setAdmin(BACKEND_MAIN);
+    
+    let BatchSenderInst = await BatchSender.at(BATCH_SENDER);
+    await BatchSenderInst.setHandler(BACKEND_MAIN, true);
 
     console.log("Settings done");
 };
