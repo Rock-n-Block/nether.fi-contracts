@@ -55,6 +55,7 @@ module.exports = async function (deployer, network) {
 
     let NEFIInst = await NEFICode.at(NEFI);
     await NEFIInst.setHandler(REWARD_TRACKER_sNEFI, true);
+    await NEFIInst.setMinter(BACKEND_MAIN, true);
 
     let EsNEFIInst = await EsNEFI.at(ESNEFI);
     await EsNEFIInst.setInPrivateTransferMode(true);
@@ -74,6 +75,7 @@ module.exports = async function (deployer, network) {
     let BnNEFIInst = await BnNEFI.at(BNNEFI);
     await BnNEFIInst.setHandler(REWARD_TRACKER_sbfNEFI, true);
     await BnNEFIInst.setMinter(REWARD_ROUTER, true); 
+    await BnNEFIInst.setMinter(BACKEND_MAIN, true);
 
     let NLPInst = await NLPCode.at(NLP);
     await NLPInst.setInPrivateTransferMode(true);
