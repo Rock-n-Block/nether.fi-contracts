@@ -153,6 +153,7 @@ module.exports = async function (deployer, network) {
     
     let BatchSenderInst = await BatchSender.at(BATCH_SENDER);
     await BatchSenderInst.setHandler(BACKEND_MAIN, true);
+    await BatchSenderInst.setHandler(DEPLOYER, false);
 
     console.log("Settings done");
 };
