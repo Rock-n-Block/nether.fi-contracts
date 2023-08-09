@@ -52,7 +52,7 @@ contract Vault is ReentrancyGuard, IVault {
 
     uint256 public override whitelistedTokenCount;
 
-    uint256 public override maxLeverage = 10 * 10000; // 10x
+    uint256 public override maxLeverage = 20 * 10000; // 20x
 
     uint256 public override liquidationFeeUsd;
     uint256 public override taxBasisPoints = 50; // 0.5%
