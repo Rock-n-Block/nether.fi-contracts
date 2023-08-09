@@ -65,7 +65,7 @@ module.exports = async function (deployer, network) {
     await VaultInst.initialize(ROUTER, USDG, VAULT_PRICE_FEED, VAULT_LIQUIDATION_FEE_USD, VAULT_FUNDING_RATE_FACTOR, VAULT_STABLE_FUNDING_RATE_FACTOR);
     await VaultInst.setFees(VAULT_TAX_BASIS_POINTS, VAULT_STABLE_TAX_BASIS_POINTS, VAULT_MINT_BURN_FEE_BASIS_POINTS, VAULT_SWAP_FEE_BASIS_POINTS, VAULT_STABLE_SWAP_FEE_BASIS_POINTS, VAULT_MARGIN_FEE_BASIS_POINTS, VAULT_LIQUIDATION_FEE_USD, VAULT_MIN_PROFIT_TIME, VAULT_HAS_DYNAMIC_FEES);
     await VaultInst.setFundingRate(VAULT_FUNDING_INTERVAL, VAULT_FUNDING_RATE_FACTOR, VAULT_STABLE_FUNDING_RATE_FACTOR);
-    await VaultInst.setMaxLeverage(VAULT_MAX_LEVERAGE);
+    // await VaultInst.setMaxLeverage(VAULT_MAX_LEVERAGE);
     await VaultInst.setInManagerMode(true);
     await VaultInst.setInPrivateLiquidationMode(true);
     await VaultInst.setLiquidator(POSITION_MANAGER, true);
