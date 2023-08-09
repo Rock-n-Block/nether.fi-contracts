@@ -44,7 +44,7 @@ module.exports = async function (deployer, network) {
     await TimelockInst.setShouldToggleIsLeverageEnabled(true);
     await TimelockInst.setContractHandler(POSITION_MANAGER, true);
     await TimelockInst.setContractHandler(POSITION_ROUTER, true);
-    await TimelockInst.setKeeper(BACKEND_MAIN, true); 
+    await TimelockInst.setKeeper(BACKEND_MAIN, true);
     console.log("Timelock =", TimelockInst.address);
     console.log("Request token manager to set timelock admin to gov");
     
@@ -53,8 +53,8 @@ module.exports = async function (deployer, network) {
     );
 
     let ShortsTrackerTimelockInst = await ShortsTrackerTimelock.deployed();
-    await ShortsTrackerTimelockInst.setHandler(BACKEND_MAIN, true); 
-    await ShortsTrackerTimelockInst.signalSetAdmin(GOV); 
+    await ShortsTrackerTimelockInst.setHandler(BACKEND_MAIN, true);
+    await ShortsTrackerTimelockInst.signalSetAdmin(GOV);
     console.log("ShortsTrackerTimelock =", ShortsTrackerTimelockInst.address);
-    console.log("Call setAdmin(GOV) 5 minutes later"); 
+    console.log("Call setAdmin(GOV) 5 minutes later");
 };

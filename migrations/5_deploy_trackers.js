@@ -33,7 +33,7 @@ module.exports = async function (deployer, network) {
     //fsNLP: fNLP
 
     await deployer.deploy(
-        RewardTracker, "Staked NEFI", "sNEFI"
+        RewardTracker, "Staked NFI", "sNFI"
     );
 
     let RewardTrackerInstOne = await RewardTracker.deployed();
@@ -50,7 +50,7 @@ module.exports = async function (deployer, network) {
 
     //SECOND
     await deployer.deploy(
-        RewardTracker, "Staked + Bonus NEFI", "sbNEFI"
+        RewardTracker, "Staked + Bonus NFI", "sbNFI"
     );
 
     let RewardTrackerInstTwo = await RewardTracker.deployed();
@@ -67,7 +67,7 @@ module.exports = async function (deployer, network) {
 
     //THIRD
     await deployer.deploy(
-        RewardTracker, "Staked + Bonus + Fee NEFI", "sbfNEFI"
+        RewardTracker, "Staked + Bonus + Fee NFI", "sbfNFI"
     );
 
     let RewardTrackerInstThree = await RewardTracker.deployed();

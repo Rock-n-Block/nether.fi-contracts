@@ -5,8 +5,8 @@ require('dotenv').config();
 const {
 } = process.env;
 
-const NEFI = artifacts.require("NEFI");
-const EsNEFI = artifacts.require("EsNEFI");
+const NEFI = artifacts.require("NFI");
+const EsNEFI = artifacts.require("EsNFI");
 const BnNEFI = artifacts.require("MintableBaseToken");
 const NLP = artifacts.require("NLP");
 
@@ -38,7 +38,7 @@ module.exports = async function (deployer, network) {
     console.log("EsNEFI =", EsNEFIInst.address);
 
     await deployer.deploy(
-        BnNEFI, "Bonus NEFI", "bnNEFI", ZERO
+        BnNEFI, "NetherFi Multiplier Points", "MP", ZERO
     );
 
     let BnNEFIInst = await BnNEFI.deployed();

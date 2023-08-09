@@ -29,8 +29,8 @@ const {
 } = process.env;
 
 const USDGCode = artifacts.require("USDG");
-const NEFICode = artifacts.require("NEFI");
-const EsNEFI = artifacts.require("EsNEFI");
+const NEFICode = artifacts.require("NFI");
+const EsNEFI = artifacts.require("EsNFI");
 const BnNEFI = artifacts.require("MintableBaseToken");
 const NLPCode = artifacts.require("NLP");
 const RewardTracker = artifacts.require("RewardTracker");

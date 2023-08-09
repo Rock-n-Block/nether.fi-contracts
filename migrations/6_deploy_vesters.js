@@ -27,7 +27,7 @@ module.exports = async function (deployer, network) {
         return;
 
     await deployer.deploy(
-        Vester, "Vested NEFI", "vNEFI", VESTER_VESTING_DURATION, ESNEFI, REWARD_TRACKER_sbfNEFI, NEFI, REWARD_TRACKER_sNEFI
+        Vester, "Vested NFI", "vNFI", VESTER_VESTING_DURATION, ESNEFI, REWARD_TRACKER_sbfNEFI, NEFI, REWARD_TRACKER_sNEFI
     );
 
     let VesterInstOne = await Vester.deployed();
