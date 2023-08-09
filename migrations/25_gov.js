@@ -81,5 +81,5 @@ module.exports = async function (deployer, network) {
         await GovernableInst.setGov(GOV);
     }
     
-    console.log("Call ShortsTracker's setInitData and setGov to ShortsTrackerTimelock");
+    console.log("Call ShortsTracker's setInitData (ONLY FOR NON-STABLE TOKENS) and setGov to ShortsTrackerTimelock");
 };
