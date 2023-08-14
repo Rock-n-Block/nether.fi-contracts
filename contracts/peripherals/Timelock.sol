@@ -26,7 +26,7 @@ contract Timelock is ITimelock {
     uint256 public constant PRICE_PRECISION = 10 ** 30;
     uint256 public constant MAX_BUFFER = 5 days;
     uint256 public constant MAX_FUNDING_RATE_FACTOR = 200; // 0.02%
-    uint256 public constant MAX_LEVERAGE_VALIDATION = 500000; // 50x
+    uint256 public constant MAX_LEVERAGE_VALIDATION = 200000; // 20x
 
     uint256 public buffer;
     address public admin;
