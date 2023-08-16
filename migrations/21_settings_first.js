@@ -57,14 +57,8 @@ module.exports = async function (deployer, network) {
 
     let NEFIInst = await NEFICode.at(NEFI);
     await NEFIInst.setHandler(REWARD_TRACKER_sNEFI, true);
-    // await NEFIInst.setMinter(BACKEND_MAIN, true);
-
-    await NEFIInst.setMinter(DEPLOYER, true);
-    await NEFIInst.mint(GOV, "400000000000000000000000000");
-    await NEFIInst.setMinter(DEPLOYER, false);
 
     let EsNEFIInst = await EsNEFI.at(ESNEFI);
-    await EsNEFIInst.setInPrivateTransferMode(true);
     await EsNEFIInst.setHandler(REWARD_TRACKER_sNEFI, true);
     await EsNEFIInst.setHandler(VESTER_NEFI, true);
     await EsNEFIInst.setHandler(VESTER_NLP, true);
@@ -74,22 +68,12 @@ module.exports = async function (deployer, network) {
     await EsNEFIInst.setHandler(DISTRIBUTOR_sNEFI, true);
     await EsNEFIInst.setHandler(DISTRIBUTOR_fsNLP, true);
     await EsNEFIInst.setHandler(BATCH_SENDER, true);
-    // await EsNEFIInst.setMinter(BACKEND_MAIN, true);
     await EsNEFIInst.setMinter(VESTER_NEFI, true);
     await EsNEFIInst.setMinter(VESTER_NLP, true);
-
-    await EsNEFIInst.setMinter(DEPLOYER, true);
-    await EsNEFIInst.mint(GOV, "62500000000000000000000000");
-    await EsNEFIInst.setMinter(DEPLOYER, false);
 
     let BnNEFIInst = await BnNEFI.at(BNNEFI);
     await BnNEFIInst.setHandler(REWARD_TRACKER_sbfNEFI, true);
     await BnNEFIInst.setMinter(REWARD_ROUTER, true); 
-    // await BnNEFIInst.setMinter(BACKEND_MAIN, true);
-
-    await BnNEFIInst.setMinter(DEPLOYER, true);
-    await BnNEFIInst.mint(GOV, "150000000000000000000000000");
-    await BnNEFIInst.setMinter(DEPLOYER, false);
 
     let NLPInst = await NLPCode.at(NLP);
     await NLPInst.setInPrivateTransferMode(true);

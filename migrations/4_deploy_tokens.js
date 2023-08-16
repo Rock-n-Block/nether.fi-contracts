@@ -3,6 +3,8 @@ const BN = require('bn.js');
 require('dotenv').config();
 
 const {
+    GOV,
+    DEPLOYER
 } = process.env;
 
 const NEFI = artifacts.require("NFI");
@@ -30,6 +32,11 @@ module.exports = async function (deployer, network) {
     let NEFIInst = await NEFI.deployed();
     console.log("NEFI =", NEFIInst.address);
 
+    await NEFIInst.setMinter(DEPLOYER, true);
+    await NEFIInst.mint(GOV, "400000000000000000000000000");
+    await NEFIInst.setMinter(DEPLOYER, false);
+    console.log("NEFI minted");
+
     await deployer.deploy(
         EsNEFI
     );
@@ -37,12 +44,24 @@ module.exports = async function (deployer, network) {
     let EsNEFIInst = await EsNEFI.deployed();
     console.log("EsNEFI =", EsNEFIInst.address);
 
+    await EsNEFIInst.setInPrivateTransferMode(true);
+    await EsNEFIInst.setHandler(GOV, true);
+    await EsNEFIInst.setMinter(DEPLOYER, true);
+    await EsNEFIInst.mint(GOV, "62500000000000000000000000");
+    await EsNEFIInst.setMinter(DEPLOYER, false);
+    console.log("EsNEFI minted");
+
     await deployer.deploy(
         BnNEFI, "NetherFi Multiplier Points", "MP", ZERO
     );
 
     let BnNEFIInst = await BnNEFI.deployed();
     console.log("BnNEFI =", BnNEFIInst.address);
+
+    await BnNEFIInst.setMinter(DEPLOYER, true);
+    await BnNEFIInst.mint(GOV, "150000000000000000000000000");
+    await BnNEFIInst.setMinter(DEPLOYER, false);
+    console.log("BnNEFI minted");
 
     await deployer.deploy(
         NLP
