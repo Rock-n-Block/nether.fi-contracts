@@ -3,7 +3,8 @@ const BN = require('bn.js');
 require('dotenv').config();
 
 const {
-    VAULT
+    VAULT,
+    GOV
 } = process.env;
 
 const USDG = artifacts.require("USDG");
@@ -26,5 +27,6 @@ module.exports = async function (deployer, network) {
     );
 
     let USDGInst = await USDG.deployed();
+    await USDGInst.setGov(GOV);
     console.log("USDG =", USDGInst.address);
 };
