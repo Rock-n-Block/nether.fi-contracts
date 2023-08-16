@@ -115,6 +115,15 @@ module.exports = {
             skipDryRun: true,
             networkCheckTimeout: 999999
         },
+        baseMainnet: {
+            provider: () => new HDWalletProvider(MNEMONIC, 'https://mainnet.base.org'),
+            network_id: 8453,
+            gasPrice: web3.utils.toWei(DEPLOY_GAS_PRICE, 'gwei'),
+            // gas: DEPLOY_GAS_LIMIT,
+            confirmations: 2,
+            timeoutBlocks: 200,
+            skipDryRun: false
+        },
         baseGoerli: {
             provider: () => new HDWalletProvider(MNEMONIC, 'https://goerli.base.org'),
             network_id: 84531,
