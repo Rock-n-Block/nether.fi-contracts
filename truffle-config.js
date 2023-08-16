@@ -6,6 +6,7 @@ const {
     HECOINFO_API_KEY,
     BSCSCAN_API_KEY,
     POLYGONSCAN_API_KEY,
+    BASESCAN_API_KEY,
     MNEMONIC,
     DEPLOY_GAS_LIMIT,
     DEPLOY_GAS_PRICE,
@@ -22,7 +23,8 @@ module.exports = {
         etherscan: ETHERSCAN_API_KEY,
         bscscan: BSCSCAN_API_KEY,
         hecoinfo: HECOINFO_API_KEY,
-        polygonscan: POLYGONSCAN_API_KEY
+        polygonscan: POLYGONSCAN_API_KEY,
+        basescan: BASESCAN_API_KEY
     },
 
     networks: {
@@ -116,7 +118,7 @@ module.exports = {
         baseGoerli: {
             provider: () => new HDWalletProvider(MNEMONIC, 'https://goerli.base.org'),
             network_id: 84531,
-            // gasPrice: web3.utils.toWei(DEPLOY_GAS_PRICE, 'gwei'),
+            gasPrice: web3.utils.toWei(DEPLOY_GAS_PRICE, 'gwei'),
             // gas: DEPLOY_GAS_LIMIT,
             confirmations: 2,
             timeoutBlocks: 200,
