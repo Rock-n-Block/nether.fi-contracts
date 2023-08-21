@@ -304,6 +304,14 @@ contract Timelock is ITimelock {
         IVault(_vault).setUsdgAmount(_token, _usdgAmount);
     }
 
+    function lockToken(address _vault, address _token) external onlyAdmin {
+        IVault(_vault).lockToken(_token);
+    }
+
+    function unlockToken(address _vault, address _token) external onlyAdmin {
+        IVault(_vault).unlockToken(_token);
+    }
+
     function setUsdgAmounts(address _vault, address[] memory _tokens, uint256[] memory _usdgAmounts) external onlyKeeperAndAbove {
         for (uint256 i = 0; i < _tokens.length; i++) {
             IVault(_vault).setUsdgAmount(_tokens[i], _usdgAmounts[i]);

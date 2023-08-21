@@ -89,6 +89,7 @@ contract Vault is ReentrancyGuard, IVault {
     mapping (address => uint256) public override minProfitBasisPoints;
     mapping (address => bool) public override stableTokens;
     mapping (address => bool) public override shortableTokens;
+    mapping (address => bool) public lockedTokens;
 
     // tokenBalances is used only to determine _transferIn values
     mapping (address => uint256) public override tokenBalances;
@@ -390,6 +391,17 @@ contract Vault is ReentrancyGuard, IVault {
         getMaxPrice(_token);
     }
 
+    function lockToken(address _token) external {
+        _onlyGov();
+        _validate(whitelistedTokens[_token], 13);
+        lockedTokens[_token] = true;
+    }
+
+    function unlockToken(address _token) external {
+        _onlyGov(); 
+        lockedTokens[_token] = false;
+    }
+
     function clearTokenConfig(address _token) external {
         _onlyGov();
         _validate(whitelistedTokens[_token], 13);
@@ -401,6 +413,7 @@ contract Vault is ReentrancyGuard, IVault {
         delete maxUsdgAmounts[_token];
         delete stableTokens[_token];
         delete shortableTokens[_token];
+        delete lockedTokens[_token];
         whitelistedTokenCount = whitelistedTokenCount.sub(1);
     }
 
@@ -443,6 +456,7 @@ contract Vault is ReentrancyGuard, IVault {
     // useful in allowing the pool to become over-collaterised
     function directPoolDeposit(address _token) external override nonReentrant {
         _validate(whitelistedTokens[_token], 14);
+        _validate(!lockedTokens[_token], 13);
         uint256 tokenAmount = _transferIn(_token);
         _validate(tokenAmount > 0, 15);
         _increasePoolAmount(_token, tokenAmount);
@@ -452,6 +466,7 @@ contract Vault is ReentrancyGuard, IVault {
     function buyUSDG(address _token, address _receiver) external override nonReentrant returns (uint256) {
         _validateManager();
         _validate(whitelistedTokens[_token], 16);
+        _validate(!lockedTokens[_token], 13);
         useSwapPricing = true;
 
         uint256 tokenAmount = _transferIn(_token);
@@ -521,6 +536,7 @@ contract Vault is ReentrancyGuard, IVault {
         _validate(isSwapEnabled, 23);
         _validate(whitelistedTokens[_tokenIn], 24);
         _validate(whitelistedTokens[_tokenOut], 25);
+        _validate(!lockedTokens[_tokenIn], 13);
         _validate(_tokenIn != _tokenOut, 26);
 
         useSwapPricing = true;
@@ -565,6 +581,8 @@ contract Vault is ReentrancyGuard, IVault {
         _validateGasPrice();
         _validateRouter(_account);
         _validateTokens(_collateralToken, _indexToken, _isLong);
+        _validate(!lockedTokens[_collateralToken], 13);
+        _validate(!lockedTokens[_indexToken], 13);
         vaultUtils.validateIncreasePosition(_account, _collateralToken, _indexToken, _sizeDelta, _isLong);
 
         updateCumulativeFundingRate(_collateralToken, _indexToken);
