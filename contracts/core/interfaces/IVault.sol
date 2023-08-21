@@ -74,8 +74,6 @@ interface IVault {
         bool _isShortable
     ) external;
 
-    function lockToken(address _token) external;
-    function unlockToken(address _token) external;
 
     function setPriceFeed(address _priceFeed) external;
     function withdrawFees(address _token, address _receiver) external returns (uint256);
