@@ -327,8 +327,12 @@ contract Timelock is ITimelock {
         IUSDG(usdg).removeVault(address(this));
     }
 
-    function setLockedInputToken(address _token, bool _locked) external onlyAdmin {
-        INlpManager(glpManager).setLockedInputToken(_token, _locked);
+    function setLockableInputToken(address _token) external onlyAdmin {
+        INlpManager(glpManager).setLockableInputToken(_token);
+    }
+
+    function setIsInputTokenLocked(bool _locked) external onlyAdmin {
+        INlpManager(glpManager).setIsInputTokenLocked(_locked);
     }
 
     function setShortsTrackerAveragePriceWeight(uint256 _shortsTrackerAveragePriceWeight) external onlyAdmin {
