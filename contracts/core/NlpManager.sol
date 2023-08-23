@@ -39,9 +39,6 @@ contract NlpManager is ReentrancyGuard, Governable, INlpManager {
     uint256 public shortsTrackerAveragePriceWeight;
     mapping (address => bool) public isHandler;
 
-    address public lockableInputToken;
-    bool public isInputTokenLocked;
-
     event AddLiquidity(
         address account,
         address token,
@@ -69,15 +66,6 @@ contract NlpManager is ReentrancyGuard, Governable, INlpManager {
         glp = _glp;
         shortsTracker = IShortsTracker(_shortsTracker);
         cooldownDuration = _cooldownDuration;
-    }
-
-    function setLockableInputToken(address _token) external override onlyGov {
-        require(lockableInputToken == address(0), "Lockable input token set already");
-        lockableInputToken = _token;
-    }
-
-    function setIsInputTokenLocked(bool _locked) external override onlyGov {
-        isInputTokenLocked = _locked;
     }
 
     function setInPrivateMode(bool _inPrivateMode) external onlyGov {
@@ -220,7 +208,6 @@ contract NlpManager is ReentrancyGuard, Governable, INlpManager {
 
     function _addLiquidity(address _fundingAccount, address _account, address _token, uint256 _amount, uint256 _minUsdg, uint256 _minGlp) private returns (uint256) {
         require(_amount > 0, "GlpManager: invalid _amount");
-        require(!isInputTokenLocked || _token != lockableInputToken, "Cannot add liquidity with specified token");
 
         // calculate aum before buyUSDG
         uint256 aumInUsdg = getAumInUsdg(true);

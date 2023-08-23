@@ -17,6 +17,4 @@ interface INlpManager {
     function removeLiquidityForAccount(address _account, address _tokenOut, uint256 _glpAmount, uint256 _minOut, address _receiver) external returns (uint256);
     function setShortsTrackerAveragePriceWeight(uint256 _shortsTrackerAveragePriceWeight) external;
     function setCooldownDuration(uint256 _cooldownDuration) external;
-    function setLockableInputToken(address _token) external;
-    function setIsInputTokenLocked(bool _locked) external;
 }
