@@ -3,8 +3,8 @@ pragma solidity 0.6.12;
 
 contract EventFeed {
 
-    uint public lastPrice;
-    uint public lastUpdate;
+    uint256 public lastPrice;
+    uint256 public lastUpdate;
 
     address public gov;
 
@@ -17,9 +17,9 @@ contract EventFeed {
         gov = _gov;
     }
 
-    event PriceUpdate(uint indexed price, uint indexed time);
+    event PriceUpdate(uint256 indexed price, uint256 indexed time);
 
-    function emitPriceEvent(uint _price) external onlyGov() {
+    function emitPriceEvent(uint256 _price) external onlyGov() {
         lastPrice = _price;
         lastUpdate = block.timestamp;
 
