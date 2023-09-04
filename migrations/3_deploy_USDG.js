@@ -4,7 +4,7 @@ require('dotenv').config();
 
 const {
     VAULT,
-    GOV
+    DEPLOYER
 } = process.env;
 
 const USDG = artifacts.require("USDG");
@@ -27,6 +27,6 @@ module.exports = async function (deployer, network) {
     );
 
     let USDGInst = await USDG.deployed();
-    await USDGInst.setGov(GOV);
+    await USDGInst.removeAdmin(DEPLOYER);
     console.log("USDG =", USDGInst.address);
 };

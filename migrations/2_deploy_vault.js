@@ -3,7 +3,6 @@ const BN = require('bn.js');
 require('dotenv').config();
 
 const {
-    GOV
 } = process.env;
 
 const Vault = artifacts.require("Vault");
@@ -26,6 +25,5 @@ module.exports = async function (deployer, network) {
     );
 
     let VaultInst = await Vault.deployed();
-    await VaultInst.setGov(GOV);
     console.log("Vault =", VaultInst.address);
 };

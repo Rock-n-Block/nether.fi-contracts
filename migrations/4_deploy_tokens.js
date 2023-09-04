@@ -35,7 +35,6 @@ module.exports = async function (deployer, network) {
     await NEFIInst.setMinter(DEPLOYER, true);
     await NEFIInst.mint(GOV, "400000000000000000000000000");
     await NEFIInst.setMinter(DEPLOYER, false);
-    await NEFIInst.setGov(GOV);
     console.log("NEFI minted");
 
     await deployer.deploy(
@@ -50,7 +49,6 @@ module.exports = async function (deployer, network) {
     await EsNEFIInst.setMinter(DEPLOYER, true);
     await EsNEFIInst.mint(GOV, "62500000000000000000000000");
     await EsNEFIInst.setMinter(DEPLOYER, false);
-    await EsNEFIInst.setGov(GOV);
     console.log("EsNEFI minted");
 
     await deployer.deploy(
@@ -63,7 +61,6 @@ module.exports = async function (deployer, network) {
     await BnNEFIInst.setMinter(DEPLOYER, true);
     await BnNEFIInst.mint(GOV, "150000000000000000000000000");
     await BnNEFIInst.setMinter(DEPLOYER, false);
-    await BnNEFIInst.setGov(GOV);
     console.log("BnNEFI minted");
 
     await deployer.deploy(
@@ -71,6 +68,5 @@ module.exports = async function (deployer, network) {
     );
 
     let NLPInst = await NLP.deployed();
-    await NLPInst.setGov(GOV);
     console.log("NLP =", NLPInst.address);
 };
